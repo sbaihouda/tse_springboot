@@ -1,16 +1,17 @@
 package tdRestAPI.td.controllers;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tdRestAPI.td.models.Equipe;
 import tdRestAPI.td.models.Joueur;
 import tdRestAPI.td.service.EquipeService;
-import tdRestAPI.td.service.JoueurService;
 
 import java.util.List;
 
 
 @RestController
+@NoArgsConstructor
 public class EquipeController {
 
     @Autowired
@@ -21,7 +22,7 @@ public class EquipeController {
         return this.equipeService.findAllTeams();
     }
 
-    @PostMapping("/equipe")
+    @PostMapping("/equipes")
     public Equipe createPlayer(@RequestBody Equipe equipe) {
 
         return this.equipeService.createTeam(equipe);
