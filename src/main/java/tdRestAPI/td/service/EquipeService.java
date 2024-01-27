@@ -10,7 +10,7 @@ import java.util.List;
 public interface EquipeService {
 
     @Transactional(readOnly = true)
-    List<Equipe> findAllTeams();
+    List<Equipe> getTeams();
 
     @Transactional(readOnly = true)
     Equipe findTeam(Long id);

@@ -18,32 +18,27 @@ public class JoueurServiceImpl implements JoueurService {
     @Override
     @Transactional(readOnly = true)
     public List<Joueur> findAllPlayers() {
-
         return this.joueurRepository.findAll();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Joueur findPlayer(Long id) {
-
         return this.joueurRepository.findById(id).orElse(null);
     }
 
     @Override
     public Joueur createPlayer(Joueur joueur) {
-
         return this.joueurRepository.save(joueur);
     }
 
     @Override
     public void deletePlayer(Long id) {
-
         this.joueurRepository.deleteById(id);
     }
 
     @Override
     public Joueur savePlayer(Joueur joueur) {
-
         return this.joueurRepository.save(joueur);
     }
 }

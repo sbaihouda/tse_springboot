@@ -2,6 +2,7 @@ package tdRestAPI.td.controllers;
 
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import tdRestAPI.td.models.Equipe;
 import tdRestAPI.td.models.Joueur;
@@ -18,30 +19,43 @@ public class EquipeController {
     private EquipeService equipeService;
 
     @GetMapping("/equipes")
-    public List<Equipe> allTeams(){
-        return this.equipeService.findAllTeams();
+    public List<Equipe> getEquipes(){
+        return this.equipeService.getTeams();
     }
 
+    @GetMapping("/equipes/{id}")
+    public Equipe getEquipe(@PathVariable Long id) throws ResourceNotFoundException {
+
+        Equipe result = this.equipeService.findTeam(id);
+
+        if (result != null) {
+
+            return result;
+        }
+        else {
+            throw new ResourceNotFoundException();
+        }
+    }
     @PostMapping("/equipes")
-    public Equipe createPlayer(@RequestBody Equipe equipe) {
+    public Equipe postEquipe(@RequestBody Equipe equipe) {
 
         return this.equipeService.createTeam(equipe);
     }
 
-    @DeleteMapping("/equipe/{id}")
-    public void deletePlayer(@PathVariable Long id) {
+    @DeleteMapping("/equipes/{id}")
+    public void deleteEquipe(@PathVariable Long id) {
 
         this.equipeService.deleteTeam(id);
     }
 
-    @PutMapping("/equipe/{id}")
-    Equipe replacePlayer(@RequestBody Joueur team, @PathVariable Long id) {
+    @PutMapping("/equipes/{id}")
+    Equipe remplacerEquipe(@RequestBody Joueur team, @PathVariable Long id) {
 
         Equipe foundPlayer = this.equipeService.findTeam(id);
 
         if (team != null) {
 
-            foundPlayer.setName(team.getName());
+            foundPlayer.setNom(team.getNom());
 
             foundPlayer = this.equipeService.saveTeam(foundPlayer);
         }
