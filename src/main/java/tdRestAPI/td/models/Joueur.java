@@ -1,6 +1,7 @@
 package tdRestAPI.td.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Joueur {
 
     @ManyToOne
     @JoinColumn(name = "equipe_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = { "joueurs" }, allowSetters = true)
     private Equipe equipe;
 
 }
