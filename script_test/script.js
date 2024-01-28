@@ -9,42 +9,84 @@ async function createEquipe(nom, joueurs) {
                 nom: nom,
                 joueurs: joueurs
             });
-
-        console.log('Équipe créée:', response.data);
+        console.log('Équipe ', nom, 'créée :', response.data);
         return response.data;
     } catch (error) {
-        console.error('Erreur lors de la création de l\'équipe:', error.response ? error.response.data : error.message);
+        console.error('Erreur lors de la création de l équipe:');
         throw error;
     }
 }
 
-async function createJoueur(equipeId) {
+async function createJoueur(nom, prenom, dateDeNaissance, equipeId) {
     try {
         const response = await axios.post(`${baseUrl}/joueurs`,
             {
-                nom: 'nom joueur 1',
-                prenom: 'prenom joueur 1',
-                dateDeNaissance: '1999-12-12T00:00:00Z',
+                nom: nom,
+                prenom: prenom,
+                dateDeNaissance: dateDeNaissance,
                 equipe: {id: equipeId}
             });
-
-        console.log('Joueur ajouté a l équipe :',equipeId,' ', response.data);
         return response.data;
     } catch (error) {
         console.error('Erreur lors de la création du joueur:', error.response ? error.response.data : error.message);
         throw error;
     }
 }
+async function getAllJoueurs() {
+    try {
+        const response = await axios.get(`${baseUrl}/joueurs`);
+        console.log("get tout les joueurs : ",response.data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function getJoueur() {
+    try {
+        const response = await axios.get(`${baseUrl}/joueurs/4`);
+        console.log("Get the 4th player")
+        console.log(response.data);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
+async function deleteJoueur() {
+    try {
+
+        const response = await axios.delete(`${baseUrl}/joueurs/7`);
+        console.log("Deletion of the 7th player")
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function putJoueur(joueur_ajoutée) {
+    try {
+        const response = await axios.put('http://localhost:8080/joueurs', joueur_ajoutée);
+        console.log("Modification of the 6th player")
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 async function main() {
     try {
         const  joueurs =  []
-        const equipe1 = await createEquipe('Équipe 1',joueurs);
-        const equipe2 = await createEquipe('Équipe 2', joueurs);
-        console.log(" equipe 1 id :  ",equipe1.id);
-        console.log(" equipe 2 id :  ",equipe2.id);
-        const joueur1 = await createJoueur(equipe1.id);
+        const PSG = await createEquipe('PSG',joueurs);
+        const ASSE = await createEquipe('ASSE', joueurs);
+        console.log(" Creation de l'equipe PSG :  ",PSG.id);
+        console.log(" Creation de l'equipe ASSE :  ",ASSE.id);
+        const joueur1_equipe1 = await createJoueur("Neymar","Jr","05/02/1992",PSG.id);
+        const joueur2_equipe1 = await createJoueur("Kylian","Mbappe","20/12/1998",PSG.id);
+        const joueur3_equipe1 = await createJoueur("Achraf","Hakimi","4/11/1998",PSG.id);
+        const joueur4_equipe1 = await createJoueur("Neymar","Jr","05/02/1992",PSG.id);
+        const joueur1_equipe2 = await createJoueur("Matthieu","Dreyer","20/03/1989",ASSE.id);
+        const joueur2_equipe2 = await createJoueur("Gaëtan","Charbonnier","27/12/1988",ASSE.id);
+        const joueur3_equipe2 = await createJoueur("Dennis","Appiah","09/06/1992",ASSE.id);
+        const joueur4_equipe2 = await createJoueur("Thomas","Monconduit","10/02/1991",ASSE.id);
+        getAllJoueurs();
+        getJoueur();
+        deleteJoueur();
+        getJoueur();
 
         //const joueur2 = await createJoueur(equipe2.id);
 

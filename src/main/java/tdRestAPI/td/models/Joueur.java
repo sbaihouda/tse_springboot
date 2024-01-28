@@ -1,5 +1,6 @@
 package tdRestAPI.td.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -27,7 +28,7 @@ public class Joueur {
     private String prenom;
 
     @Column(name = "date_de_naissance")
-    private Date dateDeNaissance;
+    private String dateDeNaissance;
 
     @ManyToOne
     @JoinColumn(name = "equipe_id", referencedColumnName = "id")

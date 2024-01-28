@@ -17,17 +17,16 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "equipe")
 public class Equipe {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     @Id
     private Long id;
 
     @Column(name = "nom")
-    @JsonIgnore
     private String nom;
 
     @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Joueur> joueurs = new ArrayList<>();
+    private List<Joueur> joueurs = new ArrayList<>();;
 
 
 }
