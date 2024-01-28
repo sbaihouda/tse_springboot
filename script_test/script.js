@@ -96,7 +96,7 @@ async function getEquipe(equipeId) {
 
 async function deleteJoueur() {
     try {
-        const response = await axios.delete(`${baseUrl}/joueurs/7`);
+        const response = await axios.delete(`${baseUrl}/joueurs/1`);
         console.log("suppression joueur 7")
         return response.data;
     } catch (error) {
@@ -151,7 +151,7 @@ async function main() {
         await getAllJoueurs();
         //get toutes les equipes
         await getAllEquipes();
-        // get joueur
+        // get joueur 4
         await getJoueur(4);
         // get equipe 2
         await getEquipe(2)
@@ -160,12 +160,13 @@ async function main() {
         // modification du joueur dont id = 2
         await putJoueur(joueur_modifie)
         // get tout les joueurs apres modifs
-        console.log("liste finale après suppression et modifs : ")
         await getAllJoueurs()
         // suppression equipe 2
         await deleteEquipe(2)
         // get toutes mes equipes
         await getAllEquipes()
+        // get les joueurs après suppression equipe 2
+        await getAllJoueurs();
 
     } catch (error) {
         console.error("Une erreur s'est produite dans le script principal:", error.message);
